@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wapiti.mapper.WapitiTaskMapper" >
+  <resultMap id="BaseResultMap" type="com.wapiti.domain.entity.WapitiTask" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="executor_id" property="executorId" jdbcType="INTEGER" />
+    <result column="publisher_id" property="publisherId" jdbcType="INTEGER" />
+    <result column="task_title" property="taskTitle" jdbcType="VARCHAR" />
+    <result column="task_level" property="taskLevel" jdbcType="INTEGER" />
+    <result column="task_status" property="taskStatus" jdbcType="INTEGER" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="finish_time" property="finishTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.wapiti.domain.entity.WapitiTask" extends="BaseResultMap" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="task_content" property="taskContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, executor_id, publisher_id, task_title, task_level, task_status, created_time, 
+    finish_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    task_content
+  </sql>
+
+  <select id="queryAll" parameterType="int" resultType="com.wapiti.domain.vo.WapitiTaskVO">
+SELECT
+	wt.id as id,
+	(SELECT admin_name from wapiti_admin wa WHERE wa.id = wt.executor_id ) as executorName,
+	(SELECT admin_name from wapiti_admin wa WHERE wa.id = wt.publisher_id ) as publisherName,
+	wt.task_title as taskTitle,
+	wt.task_level as taskLevel,
+	wt.task_status as taskStatus,
+	wt.finish_time as finishTime,
+	wt.task_content	as taskContent
+FROM
+    wapiti_task  wt
+where
+    wt.task_status != 2
+    and
+    wt.publisher_id = #{paramsId,jdbcType=INTEGER}
+order by created_time
+    desc
+
+  </select>
+    <select id="queryByExecutorIdAll" parameterType="int" resultType="com.wapiti.domain.vo.WapitiTaskVO">
+SELECT
+	wt.id as id,
+	(SELECT admin_name from wapiti_admin wa WHERE wa.id = wt.executor_id ) as executorName,
+	(SELECT admin_name from wapiti_admin wa WHERE wa.id = wt.publisher_id ) as publisherName,
+	wt.task_title as taskTitle,
+	wt.task_level as taskLevel,
+	wt.task_status as taskStatus,
+	wt.finish_time as finishTime,
+	wt.task_content	as taskContent
+FROM
+    wapiti_task  wt
+where
+    wt.task_status != 2
+    and
+    wt.executor_id = #{paramsId,jdbcType=INTEGER}
+    and
+    wt.task_status != 1
+order by created_time
+    desc
+    </select>
+</mapper>

@@ -1,0 +1,52 @@
+{
+  "groups": [
+    {
+      "name": "aliyun",
+      "type": "com.wapiti.common.config.ALInfoConfig",
+      "sourceType": "com.wapiti.common.config.ALInfoConfig"
+    },
+    {
+      "name": "file",
+      "type": "com.wapiti.common.config.ALOSSConfig",
+      "sourceType": "com.wapiti.common.config.ALOSSConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "aliyun.access-key-i-d",
+      "type": "java.lang.String",
+      "sourceType": "com.wapiti.common.config.ALInfoConfig"
+    },
+    {
+      "name": "aliyun.access-key-secret",
+      "type": "java.lang.String",
+      "sourceType": "com.wapiti.common.config.ALInfoConfig"
+    },
+    {
+      "name": "file.bucket-name",
+      "type": "java.lang.String",
+      "sourceType": "com.wapiti.common.config.ALOSSConfig"
+    },
+    {
+      "name": "file.endpoint",
+      "type": "java.lang.String",
+      "sourceType": "com.wapiti.common.config.ALOSSConfig"
+    },
+    {
+      "name": "file.host",
+      "type": "java.lang.String",
+      "sourceType": "com.wapiti.common.config.ALOSSConfig"
+    },
+    {
+      "name": "file.object-name",
+      "type": "java.lang.String",
+      "sourceType": "com.wapiti.common.config.ALOSSConfig"
+    },
+    {
+      "name": "file.oss-host",
+      "type": "java.lang.String",
+      "sourceType": "com.wapiti.common.config.ALOSSConfig"
+    }
+  ],
+  "hints": []
+}

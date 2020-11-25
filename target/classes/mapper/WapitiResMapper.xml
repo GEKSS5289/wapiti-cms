@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wapiti.mapper.WapitiResMapper" >
+  <resultMap id="BaseResultMap" type="com.wapiti.domain.entity.WapitiRes" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="res_name" property="resName" jdbcType="VARCHAR" />
+    <result column="res_path" property="resPath" jdbcType="VARCHAR" />
+    <result column="res_size" property="resSize" jdbcType="BIGINT" />
+    <result column="publish_id" property="publishId" jdbcType="INTEGER" />
+    <result column="res_type" property="resType" jdbcType="BIT" />
+    <result column="res_status" property="resStatus" jdbcType="INTEGER" />
+    <result column="res_del" property="resDel" jdbcType="BIT" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+    <result column="deleted_time" property="deletedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, res_name, res_path, res_size, publish_id, res_type, res_status, res_del, created_time,
+    updated_time, deleted_time
+  </sql>
+
+
+  <select id="queryAll" resultType="com.wapiti.domain.vo.WapitiResVO">
+    SELECT
+      wr.id as id,
+      wr.res_name as resName,
+      wr.res_Path as resPath,
+      wr.res_size as res_size,
+      wa.admin_name as publishAdminName,
+      wr.res_status as resStatus,
+      wr.res_del as resDel,
+      wr.created_time as createdTime
+    FROM
+      wapiti_res  wr
+    left join
+      wapiti_admin wa
+    on
+      wr.publish_id = wa.id
+    where
+      wr.res_status = 2
+    order by createdTime
+      desc
+  </select>
+  <select id="queryNoCheck" resultType="com.wapiti.domain.vo.WapitiResVO">
+    SELECT
+      wr.id as id,
+      wr.res_name as resName,
+      wr.res_Path as resPath,
+      wr.res_size as res_size,
+      wa.admin_name as publishAdminName,
+      wr.res_status as resStatus,
+      wr.res_del as resDel,
+      wr.created_time as createdTime
+    FROM
+      wapiti_res  wr
+    left join
+      wapiti_admin wa
+    on
+      wr.publish_id = wa.id
+    where
+      wr.res_status = 0
+    order by createdTime
+      desc
+  </select>
+
+
+</mapper>
