@@ -8,5 +8,6 @@ package com.wapiti.common.constatnt;
 public interface SMSCode {
 
     public static final String SMS_CODE = "sms_code";
+    public static final String SMS_ADMIN_IP = "SMS_ADMIN_IP";
 
 }

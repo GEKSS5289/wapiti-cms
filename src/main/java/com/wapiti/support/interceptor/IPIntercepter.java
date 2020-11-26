@@ -1,17 +1,10 @@
 package com.wapiti.support.interceptor;
 
-
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.interfaces.DecodedJWT;
-import com.auth0.jwt.interfaces.JWTVerifier;
 import com.wapiti.common.constatnt.SMSCode;
-import com.wapiti.common.constatnt.TokenParameter;
 import com.wapiti.common.enums.ErrorEnums;
 import com.wapiti.common.utils.ExceptionPerformer;
 import com.wapiti.common.utils.IPUtil;
 import com.wapiti.common.utils.RedisOperator;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -21,28 +14,25 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author sue
- * @date 2020/11/12 21:15
+ * @date 2020/11/26 13:33
  */
 
 @Component
-public class JwtIntercepter extends HandlerInterceptorAdapter {
+public class IPIntercepter  extends HandlerInterceptorAdapter {
+
+    @Autowired
+    private RedisOperator redisOperator;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-
-
-        String token = request.getHeader("token");
-
-        if(StringUtils.isEmpty(token)){
-            ExceptionPerformer.Execute(ErrorEnums.NOT_TOKEN);
+        //重复ip拦截
+        String userIp = IPUtil.getRequestIp(request);
+        boolean keyIsExist = redisOperator.keyIsExist(SMSCode.SMS_ADMIN_IP +":"+userIp);
+        if(keyIsExist){
+            ExceptionPerformer.Execute(ErrorEnums.SMSCODE_IP_EXIST);
+            return false;
         }
-
-        Algorithm algorithm = Algorithm.HMAC256(TokenParameter.JWT_KEY);
-        JWTVerifier verifier = JWT.require(algorithm)
-                .build();
-        DecodedJWT jwt = verifier.verify(token);
-
         return true;
 
     }

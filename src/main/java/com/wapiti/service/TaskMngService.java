@@ -52,6 +52,15 @@ public class TaskMngService {
      * 完成任务
      */
     public void finish(Integer taskId){
+
+        WapitiTask wapitiTask1 = new WapitiTask();
+        wapitiTask1.setId(taskId);
+        WapitiTask wapitiTask2 = wapitiTaskMapper.selectByPrimaryKey(wapitiTask1);
+
+        if(wapitiTask1.getTaskStatus()==2){
+            return;
+        }
+
         WapitiTask wapitiTask = new WapitiTask();
         wapitiTask.setId(taskId);
         wapitiTask.setTaskStatus(1);

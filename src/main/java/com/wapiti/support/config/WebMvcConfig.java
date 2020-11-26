@@ -1,7 +1,9 @@
 package com.wapiti.support.config;
 
 
+import com.wapiti.support.interceptor.IPIntercepter;
 import com.wapiti.support.interceptor.JwtIntercepter;
+import com.wapiti.support.interceptor.LogsIntercepter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -16,6 +18,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Autowired
     private JwtIntercepter jwtIntercepter;
+    @Autowired
+    private IPIntercepter ipIntercepter;
+    @Autowired
+    private LogsIntercepter logsIntercepter;
 
 
     @Override
@@ -27,5 +33,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addPathPatterns("/story/**")
                 .addPathPatterns("/admin/**")
                 .addPathPatterns("/res/**");
+
+        registry.addInterceptor(ipIntercepter)
+                .addPathPatterns("/admin/sms/**");
+
+
+        registry.addInterceptor(logsIntercepter)
+                .addPathPatterns("/**");
     }
 }

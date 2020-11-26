@@ -30,7 +30,10 @@ public enum ErrorEnums {
     ADMIN_EXCEPTION(4003,"账号异常，请联系管理员"),
 
 
-    SMSCODE_ERROR(5001,"验证码错误");
+
+    SMSCODE_ERROR(5001,"验证码错误"),
+    SMSCODE_IP_EXIST(5002,"不要重复获取验证码");
+
     private Integer code;
     private String msg;
 

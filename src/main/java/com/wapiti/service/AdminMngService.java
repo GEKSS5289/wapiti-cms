@@ -68,6 +68,8 @@ public class AdminMngService {
         wapitiAdmin.setUpdatedTime(date);
         wapitiAdminMapper.insert(wapitiAdmin);
 
+
+
     }
     /**
      * 冻结用户
@@ -161,18 +163,34 @@ public class AdminMngService {
 
 
     public void sendSms(String phone, HttpServletRequest request){
+
+
+        Example example = new Example(WapitiAdmin.class);
+        Example.Criteria criteria = example.createCriteria();
+        example.orderBy("createdTime").desc();
+        criteria.andEqualTo("adminAccount",phone);
+        criteria.andEqualTo("isFreeze",false);
+        criteria.andEqualTo("isDel",false);
+        WapitiAdmin wapitiAdmin1 = wapitiAdminMapper.selectOneByExample(example);
+
+        if(wapitiAdmin1 == null){
+            ExceptionPerformer.Execute(ErrorEnums.ADMIN_EXCEPTION);
+        }
+
         //获得用户IP
         String userIp = IPUtil.getRequestIp(request);
 
-        //根据用户ip进行限制，限制用户在60秒内只能获得一次验证码
-//        redisOperator.setnx60s(SMSCode.SMS_CODE+":"+userIp,userIp);
+//        根据用户ip进行限制，限制用户在60秒内只能获得一次验证码
+        redisOperator.setnx60s(SMSCode.SMS_ADMIN_IP+":"+userIp,userIp);
 
         //随机短信验证码
         String random = (int)((Math.random()*9+1)*1000)+"";
-        smsUtils.sendSMS(phone,random);
+
+        //TODO:调试暂时不开
+//        smsUtils.sendSMS(phone,random);
 
         //将验证码存入redis，用于后续验证
-        redisOperator.set(SMSCode.SMS_CODE+":"+phone,random,30*60);
+        redisOperator.set(SMSCode.SMS_CODE+":"+phone,random,60);
 
     }
 }
