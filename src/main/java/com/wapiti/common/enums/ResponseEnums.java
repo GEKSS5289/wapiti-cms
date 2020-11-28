@@ -17,7 +17,6 @@ public enum ResponseEnums {
 
 
 
-
     private Integer status;
     private Boolean success;
     private String  message;

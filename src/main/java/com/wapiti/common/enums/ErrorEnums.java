@@ -28,6 +28,10 @@ public enum ErrorEnums {
     ADMIN_EXIST(4001,"用户已存在"),
     ADMIN_NOT_EXIST(4002,"用户不存在"),
     ADMIN_EXCEPTION(4003,"账号异常，请联系管理员"),
+    ADMIN_FORBIDDEN(4004,"用户权限不足"),
+    ADMIN_FREEZE(4005,"用户被冻结"),
+    ADMIN_INFO_ERROR(4006,"用户信息出错"),
+
 
 
 

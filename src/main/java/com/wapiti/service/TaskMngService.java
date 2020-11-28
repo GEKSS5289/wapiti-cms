@@ -57,7 +57,7 @@ public class TaskMngService {
         wapitiTask1.setId(taskId);
         WapitiTask wapitiTask2 = wapitiTaskMapper.selectByPrimaryKey(wapitiTask1);
 
-        if(wapitiTask1.getTaskStatus()==2){
+        if(wapitiTask2.getTaskStatus()==2){
             return;
         }
 

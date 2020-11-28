@@ -155,6 +155,7 @@ public class AdminMngService {
                 .withClaim("isRoot",wapitiAdmin1.getIsRoot())
                 .withClaim("name",wapitiAdmin1.getAdminName())
                 .withClaim("face",wapitiAdmin1.getAdminFace())
+                .withClaim("isFreeze",wapitiAdmin1.getIsFreeze())
 //                .withExpiresAt(new Date(System.currentTimeMillis()+200))
                 .sign(algorithm);
         return token;
@@ -186,11 +187,11 @@ public class AdminMngService {
         //随机短信验证码
         String random = (int)((Math.random()*9+1)*1000)+"";
 
-        //TODO:调试暂时不开
-//        smsUtils.sendSMS(phone,random);
+//        TODO:调试暂时不开
+        smsUtils.sendSMS(phone,random);
 
         //将验证码存入redis，用于后续验证
-        redisOperator.set(SMSCode.SMS_CODE+":"+phone,random,60);
+        redisOperator.set(SMSCode.SMS_CODE+":"+phone,random,60*30);
 
     }
 }

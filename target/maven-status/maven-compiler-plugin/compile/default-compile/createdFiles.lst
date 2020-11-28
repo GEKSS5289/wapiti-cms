@@ -31,6 +31,7 @@ com\wapiti\api\TaskMngController.class
 com\wapiti\common\utils\FileEjector.class
 com\wapiti\support\interceptor\JwtIntercepter.class
 com\wapiti\common\utils\RedisOperator.class
+com\wapiti\support\interceptor\LogsIntercepter.class
 com\wapiti\domain\vo\WapitiLogVO.class
 com\wapiti\mapper\WapitiLogMapper.class
 com\wapiti\domain\dto\StoryUpdateDTO.class
@@ -52,3 +53,4 @@ com\wapiti\api\ResourceMngController.class
 com\wapiti\common\config\ALInfoConfig.class
 com\wapiti\common\utils\SMSUtils.class
 com\wapiti\service\LogsMngService.class
+com\wapiti\support\interceptor\IPIntercepter.class

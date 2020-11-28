@@ -26,6 +26,7 @@ public class ErrorFilter {
 
     public static void startFilter(Map errorMap, ErrorclampException e){
         errorMap.put("errorMsg",e.getErrorEnums().getMsg());
+        errorMap.put("errorCode",e.getErrorEnums().getCode());
     }
 
 

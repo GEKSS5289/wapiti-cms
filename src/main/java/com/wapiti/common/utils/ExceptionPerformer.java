@@ -2,6 +2,8 @@ package com.wapiti.common.utils;
 
 
 import com.wapiti.common.enums.ErrorEnums;
+import com.wapiti.support.exception.AdminFreezeException;
+import com.wapiti.support.exception.AdminPrivilegeException;
 import com.wapiti.support.exception.ErrorclampException;
 
 /**
@@ -14,5 +16,14 @@ public class ExceptionPerformer {
         throw new ErrorclampException(errorEnums);
     }
 
+    public static void ExecuteAdminFreeze(ErrorEnums errorEnums){
+        throw new AdminFreezeException(errorEnums);
+    }
 
+    public static void ExecuteAdminIsDel(ErrorEnums errorEnums){
+        throw new AdminFreezeException(errorEnums);
+    }
+    public static void ExecuteAdminPrivilegeException(ErrorEnums errorEnums){
+        throw new AdminPrivilegeException(errorEnums);
+    }
 }

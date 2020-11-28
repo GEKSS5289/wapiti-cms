@@ -10,11 +10,15 @@ import com.wapiti.common.constatnt.TokenParameter;
 import com.wapiti.common.enums.ErrorEnums;
 import com.wapiti.common.utils.ExceptionPerformer;
 import com.wapiti.common.utils.IPUtil;
+import com.wapiti.common.utils.JWTUtils;
 import com.wapiti.common.utils.RedisOperator;
+import com.wapiti.domain.entity.WapitiAdmin;
+import com.wapiti.mapper.WapitiAdminMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,21 +31,13 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class JwtIntercepter extends HandlerInterceptorAdapter {
 
+
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
 
-
-        String token = request.getHeader("token");
-
-        if(StringUtils.isEmpty(token)){
-            ExceptionPerformer.Execute(ErrorEnums.NOT_TOKEN);
-        }
-
-        Algorithm algorithm = Algorithm.HMAC256(TokenParameter.JWT_KEY);
-        JWTVerifier verifier = JWT.require(algorithm)
-                .build();
-        DecodedJWT jwt = verifier.verify(token);
+        JWTUtils.jwtVerifier(request);
 
         return true;
 

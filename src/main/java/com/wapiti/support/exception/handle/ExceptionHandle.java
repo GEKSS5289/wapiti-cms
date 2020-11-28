@@ -56,9 +56,5 @@ public class ExceptionHandle {
         return ResponseContainer.bad(ErrorMapGenerator.errorPush(ErrorEnums.TOKEN_ERROR.getMsg()));
     }
 
-    @ExceptionHandler(IOException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseContainer  iOException(IOException e){
-        return ResponseContainer.bad(ErrorMapGenerator.errorPush(ErrorEnums.FILE_UPLOAD_FAIL.getMsg()));
-    }
+
 }
