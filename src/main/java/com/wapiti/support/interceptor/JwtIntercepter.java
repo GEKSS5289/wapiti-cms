@@ -36,6 +36,7 @@ public class JwtIntercepter extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
+       
 
         JWTUtils.jwtVerifier(request);
 

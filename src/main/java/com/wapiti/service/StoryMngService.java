@@ -1,5 +1,6 @@
 package com.wapiti.service;
 
+import com.wapiti.common.utils.RedisOperator;
 import com.wapiti.domain.dto.StoryDTO;
 import com.wapiti.domain.dto.StoryUpdateDTO;
 import com.wapiti.domain.entity.WapitiStory;
@@ -26,6 +27,9 @@ public class StoryMngService {
 
     @Autowired
     private WapitiStoryMapper wapitiStoryMapper;
+
+    @Autowired
+    private RedisOperator redisOperator;
     /**
      * 增加事迹
      */

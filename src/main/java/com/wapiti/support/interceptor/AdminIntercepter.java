@@ -37,6 +37,11 @@ public class AdminIntercepter extends HandlerInterceptorAdapter {
 
         DecodedJWT jwt = JWTUtils.jwtVerifier(request);
 
+        String isFreeze = request.getHeader("isFreeze");
+        String isRoot = request.getHeader("isRoot");
+
+
+
         Integer adminId = jwt.getClaim("adminId").asInt();
         Example example = new Example(WapitiAdmin.class);
 
@@ -51,10 +56,15 @@ public class AdminIntercepter extends HandlerInterceptorAdapter {
             ExceptionPerformer.Execute(ErrorEnums.ADMIN_NOT_EXIST);
         }
 
-        System.out.println(wapitiAdmin.getIsFreeze()+"+"+jwt.getClaim("isFreeze").asBoolean());
+
+        if(wapitiAdmin.getIsFreeze().toString()!=isFreeze || wapitiAdmin.getIsRoot().toString()!=isRoot){
+            ExceptionPerformer.Execute(ErrorEnums.ADMIN_INFO_ERROR);
+        }
+
         if(wapitiAdmin.getIsFreeze()!=jwt.getClaim("isFreeze").asBoolean()){
             ExceptionPerformer.Execute(ErrorEnums.ADMIN_INFO_ERROR);
         }
+
         if(wapitiAdmin.getIsDel()==true){
             ExceptionPerformer.Execute(ErrorEnums.ADMIN_NOT_EXIST);
 
