@@ -56,8 +56,14 @@ public class AdminIntercepter extends HandlerInterceptorAdapter {
             ExceptionPerformer.Execute(ErrorEnums.ADMIN_NOT_EXIST);
         }
 
+        System.out.println("===============");
+        System.out.println(wapitiAdmin.getIsFreeze() == Boolean.getBoolean(isFreeze));
+        System.out.println(wapitiAdmin.getIsRoot() == Boolean.getBoolean(isRoot));
+        if(wapitiAdmin.getIsFreeze()!=Boolean.parseBoolean(isFreeze)){
+            ExceptionPerformer.Execute(ErrorEnums.ADMIN_INFO_ERROR);
+        }
 
-        if(wapitiAdmin.getIsFreeze().toString()!=isFreeze || wapitiAdmin.getIsRoot().toString()!=isRoot){
+        if(wapitiAdmin.getIsRoot()!=Boolean.parseBoolean(isRoot)){
             ExceptionPerformer.Execute(ErrorEnums.ADMIN_INFO_ERROR);
         }
 
